@@ -200,12 +200,12 @@ function raycast(tile)
 
   var botleft = [];
   for (var i = 1; i <= smaller(tile.tilePos.x - 1, 8 - tile.tilePos.y); i++) {
-    botleft.push(board[indexOfPiece-(i*8)-i]);
+    botleft.push(board[indexOfPiece+(i*8)-i]);
   }
 
   var botright = [];
   for (var i = 1; i <= smaller(8 -tile.tilePos.x, 8 - tile.tilePos.y); i++) {
-    botright.push(board[indexOfPiece-(i*8)+i]);
+    botright.push(board[indexOfPiece+(i*8)+i]);
   }
 
 
@@ -220,12 +220,43 @@ function possibleMoves(tile1)
     return false;
   }
 
+  var pieceray = raycast(tile1);
   var possibles = [];
   var takes = [];
-  console.log(translatex,translatey);
   if(tile1.piece.header == "Castle")
   {
-
+    pieceray.top.forEach(function(tile) {
+        if (tile.header == "") {
+          possibles.append(tile);
+        }
+        else {
+          break
+        }
+    });
+    pieceray.left.forEach(function(tile) {
+        if (tile.header == "") {
+          possibles.append(tile);
+        }
+        else {
+          break
+        }
+    });
+    pieceray.right.forEach(function(tile) {
+        if (tile.header == "") {
+          possibles.append(tile);
+        }
+        else {
+          break
+        }
+    });
+    pieceray.bottom.forEach(function(tile) {
+        if (tile.header == "") {
+          possibles.append(tile);
+        }
+        else {
+          break
+        }
+    });
   }
   else if (tile1.piece.header == "Knight")
   {
@@ -253,7 +284,7 @@ function possibleMoves(tile1)
 
 function movepiece(pos1,pos2)
 {
-
+  possibleMoves(tile1)
   if(canPieceMove(pos1,pos2))
   {
     if (pos1.piece.side != pos2.piece.side) {
