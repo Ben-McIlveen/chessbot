@@ -1,8 +1,9 @@
 var canvasSize = 600;
 var squareSize = canvasSize / 8;
-var colorDark = "#34495e";
-var colorLight = "#ecf0f1";
-var colorActive = "#2ecc71";
+var colorDark = "#d35400";
+var colorLight = "#e67e22";
+var colorActive = "#c0392b";
+var colorMoves = "#e74c3c";
 var board = [];
 var actives = [];
 
@@ -61,9 +62,11 @@ class gridTile{
     if(this.colorT == true)
     {
       if (this.active == true) {
+        noStroke();
         fill(colorActive);
       }
       else {
+        noStroke();
         fill(colorDark);
       }
       square(this.x, this.y, squareSize);
@@ -71,17 +74,19 @@ class gridTile{
     else if(this.colorT == false) {
 
       if (this.active == true) {
+        noStroke();
         fill(colorActive);
       }
       else {
+        noStroke();
         fill(colorLight);
       }
       square(this.x, this.y, squareSize);
     }
-
+    textStyle(BOLD);
     textAlign(CENTER);
     textSize(15);
-    fill(0);
+    fill(this.piece.side);
     text(this.piece.header, this.x + (squareSize/2), this.y + (squareSize/2));
   }
 }
@@ -102,8 +107,7 @@ function setup(){
   for (var i = 0; i < 8; i++) {
     xTile = 0;
     for (var j = 0; j < 8; j++) {
-      var xtemp = j.toString()
-      var temppos = xtemp.concat(i.toString())
+      var temppos = {"x":j+1,"y":i+1};
       tempTile = new gridTile(xTile,yTile,startColor, temppos);
       board.push(tempTile)
       startColor = swap(startColor);
